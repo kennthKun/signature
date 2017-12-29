@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.line{
+				position: absolute;
+				width: 2px;
+				height: 2px;
+				background: #007AFF;
+				border-radius: 50%;
+				border:1px solid #000000;
+			}
+			#canvas{
+				width: 100%;
+				height: 100%;
+				position: relative;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="canvas"></div>
+	</body>
+	<script src="../jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var canvas = document.getElementById("canvas");
+		//设置鼠标事件 
+		var cont = 0
+		canvas.addEventListener('touchstart', function(event) {
+			event.preventDefault();
+			var classname = 'lines'+cont;
+			var str = "<span class='line "+classname+"'></span>";
+			var linex = event.targetTouches[0].pageX
+			var liney = event.targetTouches[0].pageY
+			var ajaxname = '.'+classname;
+			console.log($(ajaxname))
+			$(ajaxname).css('left',linex).css("top",liney)
+			$("#canvas").append(str)
+			//console.log(event.targetTouches[0].pageX);
+		}, false);
+		
+		canvas.addEventListener('touchmove', function(event) {
+			cont++;
+			var classname = 'line'+cont;
+			var str = "<span class='line "+classname+"'></span>";
+			var linex = event.targetTouches[0].pageX
+			var liney = event.targetTouches[0].pageY
+			var ajaxname = '.'+classname;
+			$(ajaxname).css('left',linex).css("top",liney)
+			$("#canvas").append(str)
+			event.preventDefault();
+			//console.log(event.targetTouches[0].pageX);
+		}, false);
+		canvas.addEventListener('touchend', function(event) {
+			var classname = 'lined'+cont;
+			var str = "<span class='line "+classname+"'></span>";
+			var linex = event.changedTouches[0].pageX
+			var liney = event.changedTouches[0].pageY
+			var ajaxname = '.'+classname;
+			$(ajaxname).css('left',linex).css("top",liney)
+			$("#canvas").append(str)
+			event.preventDefault();
+		}, false);
+	</script>
+
+</html>
